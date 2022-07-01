@@ -51,8 +51,12 @@ RSpec.describe Attendee do
 
   describe '#has_pass?' do
     context 'when the attendee has an pass' do
+      before do
+        allow(subject).to receive(:has_pass?).and_return(true)
+      end
+      
       it 'returns true' do
-        expect(subject.has_pass?(pass_id)).to eq(true)
+        expect(subject.has_pass?).to eq(true)
       end
     end
 
@@ -60,7 +64,7 @@ RSpec.describe Attendee do
       let(:pass_id) { nil }
 
       it 'returns false' do
-        expect(subject.has_pass?(pass_id)).to eq(false)
+        expect(subject.has_pass?).to eq(false)
       end
     end
   end
@@ -85,11 +89,14 @@ RSpec.describe Attendee do
 
   describe '#allowed_to_ride?' do
     let(:min_height) { 140 }
-    let(:pass_id) { rand(1..100) }
+    
+    before do
+      allow(subject).to receive(:has_pass?).and_return(true)
+    end
 
     context 'when attendee is allowed to go on a ride' do
       it 'returns true' do
-        expect(subject.allowed_to_ride?(min_height, pass_id)).to eq(true)
+        expect(subject.allowed_to_ride?(min_height)).to eq(true)
       end
     end
   end
