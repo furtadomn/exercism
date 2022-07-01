@@ -5,8 +5,9 @@
 require 'amusement_park'
 
 RSpec.describe Attendee do
-  height = rand(100..200)
   subject { Attendee.new(height) }
+  let(:height) { 150 }
+  let(:pass_id) { rand(1..100) }
 
   describe '#height' do
     it 'returns the height' do
@@ -16,8 +17,6 @@ RSpec.describe Attendee do
 
   describe '#pass_id' do
     context 'when the attendee has a pass id' do
-      pass_id = rand(1..100)
-
       before do
         allow(subject).to receive(:pass_id).and_return(pass_id)
       end
@@ -36,8 +35,6 @@ RSpec.describe Attendee do
 
   describe '#issue_pass!' do
     context 'when the attendee does not have a pass id' do
-      pass_id = rand(1..100)
-
       it 'issues a pass and returns a pass id' do
         expect(subject.issue_pass!(pass_id)).to eq(pass_id)
       end
@@ -48,6 +45,51 @@ RSpec.describe Attendee do
     context 'when the attendee breaks the rules' do
       it 'returns nil' do
         expect(subject.revoke_pass!).to eq(nil)
+      end
+    end
+  end
+
+  describe '#has_pass?' do
+    context 'when the attendee has an pass' do
+      it 'returns true' do
+        expect(subject.has_pass?(pass_id)).to eq(true)
+      end
+    end
+
+    context 'when the attendee has not an pass' do
+      let(:pass_id) { nil }
+
+      it 'returns false' do
+        expect(subject.has_pass?(pass_id)).to eq(false)
+      end
+    end
+  end
+
+  describe '#fits_ride?' do
+    let(:min_height) { 135 }
+
+    context 'when the attendee fits a ride' do
+      it 'returns true' do
+        expect(subject.fits_ride?(min_height)).to eq(true)
+      end
+    end
+
+    context 'when the attendee does not fits a ride' do
+      let(:min_height) { 160 }
+
+      it 'returns false' do
+        expect(subject.fits_ride?(min_height)).to eq(false)
+      end
+    end
+  end
+
+  describe '#allowed_to_ride?' do
+    let(:min_height) { 140 }
+    let(:pass_id) { rand(1..100) }
+
+    context 'when attendee is allowed to go on a ride' do
+      it 'returns true' do
+        expect(subject.allowed_to_ride?(min_height, pass_id)).to eq(true)
       end
     end
   end
