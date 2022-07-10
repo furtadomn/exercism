@@ -2,7 +2,7 @@
 
 <strong>[Trilha de Exercícios](https://exercism.org/tracks/ruby)</strong>
 
-<strong>Status:</strong> Em andamento... :construction:
+<strong>Status:</strong> Em andamento :hourglass_flowing_sand:
 
 Exercícios desenvolvidos utilizando a técnica TDD (<i>Test Driven Development</i>).
 
