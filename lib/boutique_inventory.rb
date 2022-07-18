@@ -12,23 +12,11 @@ class BoutiqueInventory
   end
 
   def cheap
-    cheap_items = []
-
-    inventory.map do |p|
-      p[:price] < 30 ? cheap_items << p : next
-    end
-
-    cheap_items
+    inventory.select { |p| p[:price] < 30 }
   end
 
   def out_of_stock
-    no_stock = []
-
-    inventory.map do |stock|
-      stock[:quantity_by_size].empty? ? no_stock << stock : next
-    end
-
-    no_stock
+    inventory.select { |stock| stock[:quantity_by_size].empty? }
   end
 
   def stock_for_item(name)
