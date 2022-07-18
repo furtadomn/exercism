@@ -8,13 +8,13 @@ class BoutiqueInventory
   end
 
   def item_names
-    @inventory.map { |n| n[:name] }.sort
+    inventory.map { |n| n[:name] }.sort
   end
 
   def cheap
     cheap_items = []
 
-    @inventory.map do |p|
+    inventory.map do |p|
       p[:price] < 30 ? cheap_items << p : next
     end
 
@@ -41,14 +41,9 @@ class BoutiqueInventory
 
   def total_stock
     stock_array = inventory.map do |stock|
-      stock[:quantity_by_size].values.reduce(:+)
+      stock[:quantity_by_size].values.sum
     end
 
-    total = []
-    stock_array.map do |num|
-      num == nil ? next : total << num
-    end
-
-    total.empty? ? 0 : total.reduce(:+)
+    stock_array.sum
   end
 end
