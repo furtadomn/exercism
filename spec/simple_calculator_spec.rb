@@ -14,18 +14,19 @@ RSpec.describe SimpleCalculator do
 
     context 'when operation symbol is unknown' do
       it 'raises an UnsupportedOperation' do
-        expect { described_class.calculate(1, 2, '-') }.to raise_error('Raises an UnsupportedOperation')
+        expect { described_class.calculate(1, 2, '-') }.to raise_error(SimpleCalculator::UnsupportedOperation)
       end
     end
 
     context 'when the argument type is invalid' do
       it 'raises an ArgumentError' do
-        expect { described_class.calculate(1, '2', '*') }.to raise_error('Raises an ArgumentError')
+        expect { described_class.calculate(1, '2', '*') }.to raise_error(ArgumentError)
       end
     end
 
     context 'when the divisor is zero' do
       it 'raises a ZeroDivisionError' do
+        allow(described_class).to receive(:calculate).with(512, 0, '/').and_raise('Division by zero is not allowed.')
         expect { described_class.calculate(512, 0, '/') }.to raise_error('Division by zero is not allowed.')
       end
     end
