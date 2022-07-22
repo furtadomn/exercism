@@ -7,14 +7,14 @@ RSpec.describe BoutiqueInventory do
 
   let(:inventory) do
     [
-      {price: 65.00, name: "Maxi Brown Dress", quantity_by_size: {s: 3, m: 7, l: 8, xl: 4}},
-      {price: 50.00, name: "Red Short Skirt", quantity_by_size: {}},
-      {price: 29.99, name: "Black Short Skirt", quantity_by_size: {s: 1, xl: 4}},
-      {price: 20.00, name: "Bamboo Socks Cats", quantity_by_size: {s: 7, m: 2}}
+      { price: 65.00, name: "Maxi Brown Dress", quantity_by_size: { s: 3, m: 7, l: 8, xl: 4 } },
+      { price: 50.00, name: "Red Short Skirt", quantity_by_size: {} },
+      { price: 29.99, name: "Black Short Skirt", quantity_by_size: { s: 1, xl: 4 } },
+      { price: 20.00, name: "Bamboo Socks Cats", quantity_by_size: { s: 7, m: 2 } }
     ]
   end
 
-  describe '.item_names' do
+  describe '#item_names' do
     let(:array_item_names) { ["Bamboo Socks Cats", "Black Short Skirt", "Maxi Brown Dress", "Red Short Skirt"] }
 
     it 'returns a list of the item names ordered alphabetically' do
@@ -22,11 +22,11 @@ RSpec.describe BoutiqueInventory do
     end
   end
 
-  describe '.cheap' do
+  describe '#cheap' do
     let(:cheap_items) do
       [
-        {price: 29.99, name: "Black Short Skirt", quantity_by_size: {s: 1, xl: 4}},
-        {price: 20.00, name: "Bamboo Socks Cats", quantity_by_size: {s: 7, m: 2}}
+        { price: 29.99, name: "Black Short Skirt", quantity_by_size: { s: 1, xl: 4 } },
+        { price: 20.00, name: "Bamboo Socks Cats", quantity_by_size: { s: 7, m: 2 } }
       ]
     end
 
@@ -35,15 +35,15 @@ RSpec.describe BoutiqueInventory do
     end
   end
 
-  describe '.out_of_stock' do
-    let(:no_stock) { [{price: 50.00, name: "Red Short Skirt", quantity_by_size: {}}] }
+  describe '#out_of_stock' do
+    let(:no_stock) { [{ price: 50.00, name: "Red Short Skirt", quantity_by_size: {} }] }
 
     it 'returns any items that have no stock' do
       expect(subject.out_of_stock).to eq(no_stock)
     end
   end
 
-  describe '.stock_for_item' do
+  describe '#stock_for_item' do
     let(:name) { "Black Short Skirt" }
 
     it 'returns the stock of an item by its name' do
@@ -51,7 +51,7 @@ RSpec.describe BoutiqueInventory do
     end
   end
 
-  describe '.total_stock' do
+  describe '#total_stock' do
     it 'calculates the total amount of items in your storeroom:' do
       expect(subject.total_stock).to eq(36)
     end
