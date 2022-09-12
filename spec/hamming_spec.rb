@@ -4,7 +4,7 @@ require 'hamming'
 
 RSpec.describe Hamming do
   describe '.compute' do
-    subject { Hamming.new(dna_strand, dna_replicated_strand).compute }
+    subject { Hamming.compute(dna_strand, dna_replicated_strand) }
 
     context 'when there is an empty DNA strand' do
       let(:dna_strand) { '' }
